@@ -1,5 +1,11 @@
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('sqlite:///./blog.db', echo=True)
+SQLAlCHAMY_DATABASE_URL = 'sqlite:///./blog.db'
 
-SQLAlCHAMY
+engine = create_engine(SQLAlCHAMY_DATABASE_URL,connect_args={"check_same_thread": False})
+
+sessionlocal = sessionmaker(bind=engine, autocommit=False, autoflush=False,)
+
+Base = declarative_base()
