@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from database import Base
 
 class Subject(Base):
-    __tablename__ = "subjects"
+    __tablename__ = "subjects"              
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True) # e.g., "GATE DA: Machine Learning"
