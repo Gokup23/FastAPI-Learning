@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends , status, Response
 from . import schemas , models
 from .database import engine, sessionlocal
 from sqlalchemy.orm import Session
+from passlib.context import CryptContext
 app = FastAPI()
 
 models.Base.metadata.create_all(engine)
@@ -53,9 +54,12 @@ def show(id,response : Response , db: Session = Depends(get_db)):
         return { 'detail' : f'blog with the id {id} not found ! '}
     return blog
 
+pwd_cxt=CryptContext(schemas=["bcrypt"],deprecated="auto")
+
 @app.post('/user')
 def user(request:schemas.user,db: Session = Depends(get_db)):
-    new_user = models.user(request)
+    hashedpassword = pwd_cxt.hash(request.password)
+    new_user = models.user(name=request.name,email=request.email,password=hashedpassword)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
