@@ -54,7 +54,7 @@ def show(id,response : Response , db: Session = Depends(get_db)):
         return { 'detail' : f'blog with the id {id} not found ! '}
     return blog
 
-pwd_cxt=CryptContext(schemas=["bcrypt"],deprecated="auto")
+pwd_cxt=CryptContext(schemes=["bcrypt"],deprecated="auto")
 
 @app.post('/user')
 def user(request:schemas.user,db: Session = Depends(get_db)):
