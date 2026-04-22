@@ -54,7 +54,7 @@ def show(id,response : Response , db: Session = Depends(get_db)):
         return { 'detail' : f'blog with the id {id} not found ! '}
     return blog
 
-@app.post('/user')
+@app.post('/user',response_model=schemas.ShowUser)
 def user(request:schemas.user,db: Session = Depends(get_db)):
     new_user = models.user(name=request.name,email=request.email,password=hashing.Hash.bcrypt)
     db.add(new_user)
