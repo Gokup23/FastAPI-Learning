@@ -14,7 +14,7 @@ class user(BaseModel):
     email:str
     password:str
 
-class ShowUser(user):
+class ShowUser(BaseModel):
     name:str
     email:str
     class Config():
