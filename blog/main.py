@@ -52,3 +52,11 @@ def show(id,response : Response , db: Session = Depends(get_db)):
         response.status_code = status.HTTP_404_NOT_FOUND
         return { 'detail' : f'blog with the id {id} not found ! '}
     return blog
+
+@app.post('/user')
+def user(request:schemas.user,db: Session = Depends(get_db)):
+    new_user = models.user(request)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
