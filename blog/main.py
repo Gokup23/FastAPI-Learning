@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends , status, Response
-from . import schemas , models
+from . import schemas , models , hashing
 from .database import engine, sessionlocal
 from sqlalchemy.orm import Session
 
@@ -56,7 +56,7 @@ def show(id,response : Response , db: Session = Depends(get_db)):
 
 @app.post('/user')
 def user(request:schemas.user,db: Session = Depends(get_db)):
-    new_user = models.user(name=request.name,email=request.email,password=hashedpassword)
+    new_user = models.user(name=request.name,email=request.email,password=hashing.Hash.bcrypt)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
