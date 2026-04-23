@@ -17,4 +17,4 @@ class user(Base):
     email = Column(String)
     password = Column(String)
 
-    blogs = relationship('blog', back_populates="creator")
+    blogs = relationship('Blog', back_populates="creator")
