@@ -3,11 +3,11 @@ from sqlalchemy.orm import Session
 from .. import database, schemas, models 
 from ..hashing import Hash 
 
-router = APIRouter()
+router = APIRouter(tags=['users'])
 
 get_db = database.get_db
 
-@router.post('/user', response_model=schemas.ShowUser, tags=["users"])
+@router.post('/user', response_model=schemas.ShowUser, )
 def create_user(request: schemas.user, db: Session = Depends(get_db)):
     
     hashed_password = Hash.bcrypt(request.password) 

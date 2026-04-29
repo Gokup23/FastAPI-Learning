@@ -3,7 +3,7 @@ from typing import List
 from .. import schemas, database, models
 from sqlalchemy.orm import Session 
 
-router = APIRouter(tags='blogs')
+router = APIRouter(tags=['blogs'])
 get_db = database.get_db
 
 @router.put('/blog/{id}',status_code=status.HTTP_202_ACCEPTED,)
