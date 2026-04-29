@@ -16,7 +16,7 @@ def update(id, request: schemas.Blog, db: Session = Depends(get_db)):
     return 'updated'
 
 @router.get('/blog/{id}',status_code=200,response_model=schemas.ShowBlog,tags=["blogs"])
-def show(id,response : Response , db: Session = Depends(get_db)):
+def show(id, db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id ==id).first()
     if not blog:
         response.status_code = status.HTTP_404_NOT_FOUND
