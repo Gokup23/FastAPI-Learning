@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 from .routers import blog
 
 app = FastAPI()
-
 models.Base.metadata.create_all(engine)
+app.include_router(blog.router)
 
 #def get_db():
 #    db =  sessionlocal()  
