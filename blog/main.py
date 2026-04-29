@@ -1,7 +1,6 @@
-from fastapi import FastAPI, Depends , status, Response
-from . import schemas , models , hashing
-from .database import engine, get_db
-from sqlalchemy.orm import Session
+from fastapi import FastAPI
+from . import models
+from .database import engine
 from .routers import blog , user
 
 app = FastAPI()
