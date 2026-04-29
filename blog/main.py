@@ -2,13 +2,14 @@ from fastapi import FastAPI, Depends , status, Response
 from . import schemas , models , hashing
 from .database import engine, get_db
 from sqlalchemy.orm import Session
+from .routers import blog
 
 app = FastAPI()
 
 models.Base.metadata.create_all(engine)
 
 #def get_db():
-#    db =  sessionlocal()
+#    db =  sessionlocal()  
 #
 #   try:
 #      yield db
