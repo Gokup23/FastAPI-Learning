@@ -6,15 +6,8 @@ from .routers import blog
 
 app = FastAPI()
 models.Base.metadata.create_all(engine)
-app.include_router(blog.router)
 
-@app.post('/blog',status_code=status.HTTP_201_CREATED,tags=["blogs"])
-def create(request:schemas.Blog ,db : Session = Depends(get_db)):
-    new_blog = models.Blog(title=request.title , body=request.body, user_id = 1)
-    db.add(new_blog)
-    db.commit()
-    db.refresh(new_blog)
-    return new_blog
+app.include_router(blog.router)
 
 @app.delete('/blog/{id}',status_code=status.HTTP_204_NO_CONTENT,tags=["blogs"])
 def destroy(id,db : Session = Depends(get_db)):
