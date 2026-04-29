@@ -8,13 +8,6 @@ app = FastAPI()
 models.Base.metadata.create_all(engine)
 app.include_router(blog.router)
 
-#def get_db():
-#    db =  sessionlocal()  
-#
-#   try:
-#      yield db
-#   finally:
-#       db.close()
 @app.post('/blog',status_code=status.HTTP_201_CREATED,tags=["blogs"])
 def create(request:schemas.Blog ,db : Session = Depends(get_db)):
     new_blog = models.Blog(title=request.title , body=request.body, user_id = 1)
@@ -40,12 +33,6 @@ def update(id, request: schemas.Blog, db: Session = Depends(get_db)):
     blog.update({'title': request.title, 'body': request.body}, synchronize_session=False)
     db.commit()
     return 'updated'
-
-
-#@app.get('/blog',tags=["blogs"])
-#def all(db:Session = Depends(get_db)):
-#    blogs = db.query(models.Blog).all()
-#    return blogs
 
 @app.get('/blog/{id}',status_code=200,response_model=schemas.ShowBlog,tags=["blogs"])
 def show(id,response : Response , db: Session = Depends(get_db)):
