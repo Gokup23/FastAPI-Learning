@@ -9,4 +9,4 @@ get_db = database.get_db
 
 @router.post('', response_model=schemas.ShowUser, )
 def create_user(request: schemas.user, db: Session = Depends(get_db)):
-    return user.create()
+    return user.create(request,db)
