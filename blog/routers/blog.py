@@ -9,13 +9,7 @@ get_db = database.get_db
 
 @router.put('/{id}',status_code=status.HTTP_202_ACCEPTED,)
 def update(id, request: schemas.Blog, db: Session = Depends(get_db)):
-    blog = db.query(models.Blog).filter(models.Blog.id == id)
-    if not blog.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail = f"Blog with id {id} not found")
-    blog.update({'title': request.title, 'body': request.body}, synchronize_session=False)
-    db.commit()
-    return 'updated'
-
+    return blog.update(id,db)
 @router.get('/{id}',status_code=200,response_model=schemas.ShowBlog,)
 def show(id, db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id ==id).first()
