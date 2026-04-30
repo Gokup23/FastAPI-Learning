@@ -8,15 +8,15 @@ router = APIRouter(prefix="/blog" ,tags=['blogs'])
 get_db = database.get_db
 
 @router.put('/{id}',status_code=status.HTTP_202_ACCEPTED,)
-def update(id, request: schemas.Blog, db: Session = Depends(get_db)):
+def update(id:int, request: schemas.Blog, db: Session = Depends(get_db)):
     return blog.update(id,request ,db)
 
 @router.get('/{id}',status_code=200,response_model=schemas.ShowBlog,)
-def show(id, db: Session = Depends(get_db)):
+def show(id:int, db: Session = Depends(get_db)):
     return blog.show_all(id,db)
 
 @router.delete('/{id}',status_code=status.HTTP_204_NO_CONTENT,)
-def destroy(id,db : Session = Depends(get_db)):
+def destroy(id:int,db : Session = Depends(get_db)):
     return blog.destroy(id , db)
 
 @router.post('',status_code=status.HTTP_201_CREATED,)
