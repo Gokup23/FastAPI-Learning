@@ -28,3 +28,10 @@ def update(id:int ,request:schemas.Blog , db:Session):
     blog.update({'title': request.title, 'body': request.body}, synchronize_session=False)
     db.commit()
     return 'updated'
+
+def show_all(id:int,db:Session):
+    blog = db.query(models.Blog).filter(models.Blog.id ==id).first()
+    if not blog:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return { 'detail' : f'blog with the id {id} not found ! '}
+    return blog

@@ -10,13 +10,10 @@ get_db = database.get_db
 @router.put('/{id}',status_code=status.HTTP_202_ACCEPTED,)
 def update(id, request: schemas.Blog, db: Session = Depends(get_db)):
     return blog.update(id,request ,db)
+
 @router.get('/{id}',status_code=200,response_model=schemas.ShowBlog,)
 def show(id, db: Session = Depends(get_db)):
-    blog = db.query(models.Blog).filter(models.Blog.id ==id).first()
-    if not blog:
-        response.status_code = status.HTTP_404_NOT_FOUND
-        return { 'detail' : f'blog with the id {id} not found ! '}
-    return blog
+    return blog.show_all(id,db)
 
 @router.delete('/{id}',status_code=status.HTTP_204_NO_CONTENT,)
 def destroy(id,db : Session = Depends(get_db)):
