@@ -35,7 +35,7 @@ def destroy(id,db : Session = Depends(get_db)):
 
 @router.post('',status_code=status.HTTP_201_CREATED,)
 def create(request:schemas.Blog ,db : Session = Depends(get_db)):
-    return blog.create(db)
+    return blog.create(request , db)
 
 @router.get('', response_model=List[schemas.ShowBlog])
 def all(db:Session = Depends(get_db)):
