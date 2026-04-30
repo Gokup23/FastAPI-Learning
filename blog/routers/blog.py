@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends , status , HTTPException
 from typing import List
-from .. import schemas, database, models
+from .. import schemas, database, models 
 from sqlalchemy.orm import Session 
+from ..repository import blog
 
 router = APIRouter(prefix="/blog" ,tags=['blogs'])
 get_db = database.get_db
@@ -40,7 +41,7 @@ def create(request:schemas.Blog ,db : Session = Depends(get_db)):
     db.refresh(new_blog)
     return new_blog
 
-@router.get('', response_model=List[schemas.ShowBlog], )
-def all(db: Session = Depends(get_db)):
-    blogs = db.query(models.Blog).all()
-    return blogs
+@router.get('', response_model=List[schemas.ShowBlog])
+def all(db:Session = Depends(get_db)):
+    return blog.get_all()
+
