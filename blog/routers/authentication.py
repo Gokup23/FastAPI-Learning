@@ -1,4 +1,4 @@
-from fastapi import APIRouter , Depends
+from fastapi import APIRouter , Depends , HTTPException , status
 from .. import schemas , database , models
 from sqlalchemy.orm import Session
 router = APIRouter(tags=['Authentication'])
@@ -7,5 +7,5 @@ router = APIRouter(tags=['Authentication'])
 def login(request:schemas.login , db: Session = Depends(database.get_db())):
     user = db.query(models.user).filter(models.user.email == request.username)
     if not user:
-        raise 
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Invalid credentials")
     return 'login'
