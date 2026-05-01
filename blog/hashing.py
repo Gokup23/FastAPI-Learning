@@ -1,6 +1,4 @@
-from passlib.context import CryptContext
-
-pwd_cxt=CryptContext(schemes=["bcrypt"],deprecated="auto")
+import bcrypt
 
 class Hash():
     def bcrypt(password: str):
